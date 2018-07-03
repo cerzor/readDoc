@@ -1,0 +1,18 @@
+import docx2txt as d2t
+txt = d2t.process("squat.docx")
+#print(txt)
+#name = raw_input("name: ")
+name = "Justin".encode("utf-8")
+nameFind = txt.find(name)
+
+txtSplit = txt.replace("-", " ").split()
+baseNumberInd = 0;
+for i,v in enumerate(txtSplit):
+	print(name)
+	print(v+ " v")
+	if(v.strip() == nameFind):
+		print(i + ", " + v)
+		baseNumberInd = i + 1
+		break
+
+print(txtSplit[baseNumberInd])
