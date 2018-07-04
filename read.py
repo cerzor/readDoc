@@ -1,8 +1,9 @@
 from __future__ import print_function
 import docx2txt as d2t
-def processNumbers(name):
+import math 
+def processNumbers(name, file):
 	output = ""
-	txt = d2t.process("squat.docx")
+	txt = d2t.process(file)
 	#name = raw_input("name: ")
 	#name = "Justin".encode("utf-8")
 	#nameFind = txt.find(name)
@@ -18,14 +19,15 @@ def processNumbers(name):
 	for i,v in enumerate(txtSplit):
 		j=0
 		if((v == 'Squat' or v == "Bench" or v == "Deadlift") and i > 100):
-			while ":" not in  txtSplit[i+j]:
+			while not txtSplit[i+j].isdigit():
 				output = output + txtSplit[i+j].replace("(", "") + " " 
 				j += 1
 			output = output + ":\n"
 		if("%" in v):
 			sets = txtSplit[i+2].replace(",","")
 			if(sets.isdigit() and i > 100):
-				weight = float(oneRm) * float("." + v.replace("%", ""))
+				weight = math.ceil(float(oneRm) * float("." + v.replace("%", "").replace(".","")))
+				print(weight)
 				while weight %  5 != 0:
 					weight += 1
 				output = output + str(weight) + " " + str(sets) + "\n"
@@ -34,3 +36,5 @@ def processNumbers(name):
 #print(txtSplit)
 
 #print(processNumbers("Justin"))
+
+
